@@ -13,6 +13,7 @@ import de.earzt.backend.services.dtos.responses.DoctorCreatedResponse;
 import de.earzt.backend.services.dtos.responses.DoctorGetAllResponse;
 import de.earzt.backend.services.messages.DoctorMessage;
 import de.earzt.backend.services.messages.SpecializationMessage;
+import de.earzt.backend.services.rules.SpecializationRule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ import java.util.List;
 public class DoctorManager implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final SpecializationRepository specializationRepository;
+    private final SpecializationRule specializationRule;
     private final IdService idService;
     private final ModelMapperService modelMapperService;
 
@@ -47,6 +49,7 @@ public class DoctorManager implements DoctorService {
 
     @Override
     public DoctorCreatedResponse addDoctor(DoctorRequest doctorRequest) {
+        specializationRule.checkIfSpecializationStatusPassive(doctorRequest.getSpecializationId());
         Doctor doctor = modelMapperService.forRequest().map(doctorRequest, Doctor.class);
         Specialization selectedSpecialization = specializationRepository.findById(doctorRequest.getSpecializationId())
                 .orElseThrow(() -> new RecordNotFoundException(SpecializationMessage.SPECIALIZATION_NOT_FOUND));
@@ -60,6 +63,7 @@ public class DoctorManager implements DoctorService {
 
     @Override
     public DoctorCreatedResponse updateDoctor(String id, DoctorRequest doctorRequest) {
+        specializationRule.checkIfSpecializationStatusPassive(doctorRequest.getSpecializationId());
         Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(DoctorMessage.DOCTOR_NOT_FOUND));
         Specialization selectedSpecialization = specializationRepository.findById(doctorRequest.getSpecializationId())
                 .orElseThrow(() -> new RecordNotFoundException(SpecializationMessage.SPECIALIZATION_NOT_FOUND));
