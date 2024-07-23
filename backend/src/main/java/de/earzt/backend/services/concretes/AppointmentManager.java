@@ -18,6 +18,8 @@ import de.earzt.backend.services.messages.AppointmentMessage;
 import de.earzt.backend.services.messages.DoctorMessage;
 import de.earzt.backend.services.messages.PatientMessage;
 import de.earzt.backend.services.rules.AppointmentRule;
+import de.earzt.backend.services.rules.DoctorRule;
+import de.earzt.backend.services.rules.PatientRule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,8 @@ public class AppointmentManager implements AppointmentService {
     private final PatientRepository patientRepository;
     private final IdService idService;
     private final AppointmentRule appointmentRule;
+    private final DoctorRule doctorRule;
+    private final PatientRule patientRule;
     private final ModelMapperService modelMapperService;
 
     @Override
@@ -48,6 +52,8 @@ public class AppointmentManager implements AppointmentService {
 
     @Override
     public AppointmentCreatedResponse addAppointment(AppointmentRequest appointmentRequest) {
+        doctorRule.checkIfDoctorStatusPassive(appointmentRequest.getDoctorId());
+        patientRule.checkIfPatientStatusPassive(appointmentRequest.getPatientId());
         Appointment appointment = modelMapperService.forRequest().map(appointmentRequest, Appointment.class);
         Doctor selectedDoctor = doctorRepository.findById(appointmentRequest.getDoctorId()).orElseThrow(() -> new RecordNotFoundException(DoctorMessage.DOCTOR_NOT_FOUND));
         Patient selectedPatient = patientRepository.findById(appointmentRequest.getPatientId()).orElseThrow(() -> new RecordNotFoundException(PatientMessage.PATIENT_NOT_FOUND));
@@ -62,6 +68,8 @@ public class AppointmentManager implements AppointmentService {
 
     @Override
     public AppointmentCreatedResponse updateAppointment(String id, AppointmentRequest appointmentRequest) {
+        doctorRule.checkIfDoctorStatusPassive(appointmentRequest.getDoctorId());
+        patientRule.checkIfPatientStatusPassive(appointmentRequest.getPatientId());
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(AppointmentMessage.APPOINTMENT_NOT_FOUND));
         Doctor selectedDoctor = doctorRepository.findById(appointmentRequest.getDoctorId()).orElseThrow(() -> new RecordNotFoundException(DoctorMessage.DOCTOR_NOT_FOUND));
         Patient selectedPatient = patientRepository.findById(appointmentRequest.getPatientId()).orElseThrow(() -> new RecordNotFoundException(PatientMessage.PATIENT_NOT_FOUND));

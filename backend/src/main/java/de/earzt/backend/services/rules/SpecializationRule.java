@@ -2,6 +2,7 @@ package de.earzt.backend.services.rules;
 
 import de.earzt.backend.core.exceptions.types.DuplicateRecordException;
 import de.earzt.backend.core.exceptions.types.RecordNotFoundException;
+import de.earzt.backend.core.exceptions.types.RecordPassiveException;
 import de.earzt.backend.models.Specialization;
 import de.earzt.backend.repositories.SpecializationRepository;
 import de.earzt.backend.services.messages.SpecializationMessage;
@@ -23,6 +24,13 @@ public class SpecializationRule {
         Specialization specialization = specializationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(SpecializationMessage.SPECIALIZATION_NOT_FOUND));
         if(!specializationName.equals(specialization.getName()) && specializationRepository.existsByName(specializationName)) {
             throw new DuplicateRecordException(SpecializationMessage.SPECIALIZATION_NAME_EXISTS);
+        }
+    }
+
+    public void checkIfSpecializationStatusPassive(String specializationId) {
+        Specialization specialization = specializationRepository.findById(specializationId).orElseThrow(() -> new RecordNotFoundException(SpecializationMessage.SPECIALIZATION_NOT_FOUND));
+        if (!specialization.isActive()) {
+            throw new RecordPassiveException(SpecializationMessage.SPECIALIZATION_PASSIVE);
         }
     }
 }
