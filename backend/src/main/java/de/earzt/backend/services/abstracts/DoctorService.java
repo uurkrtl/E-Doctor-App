@@ -9,6 +9,7 @@ import java.util.List;
 public interface DoctorService {
     List<DoctorGetAllResponse> getAllDoctors();
     List<DoctorGetAllResponse> getDoctorsByActive(boolean isActive);
+    List<DoctorGetAllResponse> getActiveDoctorsBySpecializationId(String specializationId);
     DoctorCreatedResponse getDoctorById(String id);
     DoctorCreatedResponse addDoctor(DoctorRequest doctorRequest);
     DoctorCreatedResponse updateDoctor(String id, DoctorRequest doctorRequest);
