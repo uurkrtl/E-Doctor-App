@@ -13,6 +13,7 @@ import de.earzt.backend.services.dtos.responses.DoctorCreatedResponse;
 import de.earzt.backend.services.dtos.responses.DoctorGetAllResponse;
 import de.earzt.backend.services.messages.DoctorMessage;
 import de.earzt.backend.services.messages.SpecializationMessage;
+import de.earzt.backend.services.rules.DoctorRule;
 import de.earzt.backend.services.rules.SpecializationRule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.List;
 public class DoctorManager implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final SpecializationRepository specializationRepository;
+    private final DoctorRule doctorRule;
     private final SpecializationRule specializationRule;
     private final IdService idService;
     private final ModelMapperService modelMapperService;
@@ -76,6 +78,7 @@ public class DoctorManager implements DoctorService {
 
     @Override
     public DoctorCreatedResponse changeDoctorStatus(String id) {
+        doctorRule.checkHaveDoctorActiveAppointment(id);
         Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(DoctorMessage.DOCTOR_NOT_FOUND));
         doctor.setActive(!doctor.isActive());
         doctor.setUpdatedAt(LocalDateTime.now());
