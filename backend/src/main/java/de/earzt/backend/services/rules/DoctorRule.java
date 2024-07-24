@@ -28,8 +28,9 @@ public class DoctorRule {
     }
 
     public void checkHaveDoctorActiveAppointment(String doctorId) {
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(() -> new RecordNotFoundException(DoctorMessage.DOCTOR_NOT_FOUND));
         List<Appointment> appointments = appointmentRepository.findByDoctorIdAndStatus(doctorId, AppointmentStatus.ACTIVE);
-        if (!appointments.isEmpty()) {
+        if (!appointments.isEmpty() && doctor.isActive()) {
             throw new HaveActiveRecordException(DoctorMessage.DOCTOR_HAVE_ACTIVE_APPOINTMENT);
         }
     }

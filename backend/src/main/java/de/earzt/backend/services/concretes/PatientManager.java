@@ -10,6 +10,7 @@ import de.earzt.backend.services.dtos.requests.PatientRequest;
 import de.earzt.backend.services.dtos.responses.PatientCreatedResponse;
 import de.earzt.backend.services.dtos.responses.PatientGetAllResponse;
 import de.earzt.backend.services.messages.PatientMessage;
+import de.earzt.backend.services.rules.PatientRule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class PatientManager implements PatientService {
     private final PatientRepository patientRepository;
     private final IdService idService;
     private final ModelMapperService modelMapperService;
+    private final PatientRule patientRule;
 
     @Override
     public List<PatientGetAllResponse> getAllPatients() {
@@ -63,6 +65,7 @@ public class PatientManager implements PatientService {
 
     @Override
     public PatientCreatedResponse changePatientStatus(String id) {
+        patientRule.checkHavePatientActiveAppointment(id);
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(PatientMessage.PATIENT_NOT_FOUND));
         patient.setActive(!patient.isActive());
         patient.setUpdatedAt(LocalDateTime.now());

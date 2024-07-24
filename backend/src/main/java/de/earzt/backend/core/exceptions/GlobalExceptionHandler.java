@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
                 .message(ex.getMessage())
                 .timeStamp(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HaveActiveRecordException.class)
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
                 .message(ex.getMessage())
                 .timeStamp(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
