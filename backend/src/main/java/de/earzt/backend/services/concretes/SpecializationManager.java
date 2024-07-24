@@ -66,6 +66,7 @@ public class SpecializationManager implements SpecializationService {
 
     @Override
     public SpecializationCreatedResponse changeSpecializationStatus(String id) {
+        specializationRule.checkHaveSpecializationActiveDoctor(id);
         Specialization specialization = specializationRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(SpecializationMessage.SPECIALIZATION_NOT_FOUND));
         specialization.setActive(!specialization.isActive());
         specialization.setUpdatedAt(LocalDateTime.now());
