@@ -1,6 +1,7 @@
 package de.earzt.backend.core.exceptions;
 
 import de.earzt.backend.core.exceptions.types.DuplicateRecordException;
+import de.earzt.backend.core.exceptions.types.HaveActiveRecordException;
 import de.earzt.backend.core.exceptions.types.RecordNotFoundException;
 import de.earzt.backend.core.exceptions.types.RecordPassiveException;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,18 @@ public class GlobalExceptionHandler {
                 .apiPath(request.getDescription(false))
                 .status(HttpStatus.BAD_REQUEST)
                 .title("Record Passive")
+                .message(ex.getMessage())
+                .timeStamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(HaveActiveRecordException.class)
+    public ResponseEntity<ErrorResponse> handleHaveActiveRecordException(HaveActiveRecordException ex, WebRequest request) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .apiPath(request.getDescription(false))
+                .status(HttpStatus.BAD_REQUEST)
+                .title("Record Have Active Records")
                 .message(ex.getMessage())
                 .timeStamp(LocalDateTime.now())
                 .build();
