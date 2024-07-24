@@ -44,6 +44,12 @@ public class DoctorManager implements DoctorService {
     }
 
     @Override
+    public List<DoctorGetAllResponse> getActiveDoctorsBySpecializationId(String specializationId) {
+        List<Doctor> activeDoctorsBySpecialization = doctorRepository.findAllBySpecializationIdAndIsActive(specializationId, true);
+        return activeDoctorsBySpecialization.stream().map(doctor -> modelMapperService.forResponse().map(doctor, DoctorGetAllResponse.class)).toList();
+    }
+
+    @Override
     public DoctorCreatedResponse getDoctorById(String id) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(DoctorMessage.DOCTOR_NOT_FOUND));
         return modelMapperService.forResponse().map(doctor, DoctorCreatedResponse.class);

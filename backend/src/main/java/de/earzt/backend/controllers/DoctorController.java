@@ -27,6 +27,11 @@ public class DoctorController {
         return doctorService.getDoctorsByActive(isActive);
     }
 
+    @GetMapping("/specialization/{specializationId}")
+    public List<DoctorGetAllResponse> getActiveDoctorsBySpecializationId(@PathVariable String specializationId) {
+        return doctorService.getActiveDoctorsBySpecializationId(specializationId);
+    }
+
     @GetMapping("/{id}")
     public DoctorCreatedResponse getDoctorById(@PathVariable String id) {
         return doctorService.getDoctorById(id);

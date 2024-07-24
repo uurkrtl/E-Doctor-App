@@ -9,4 +9,6 @@ public interface DoctorRepository extends MongoRepository<Doctor, String> {
     List<Doctor> findByIsActive(boolean isActive);
 
     List<Doctor> findBySpecializationIdAndIsActive(String specializationId, boolean b);
+
+    List<Doctor> findAllBySpecializationIdAndIsActive(String specializationId, boolean b);
 }
