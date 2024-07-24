@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface AppointmentRepository extends MongoRepository<Appointment, String> {
     List<Appointment> findByDoctorIdAndStatus(String doctorId, AppointmentStatus appointmentStatus);
+
+    List<Appointment> findByPatientIdAndStatus(String patientId, AppointmentStatus appointmentStatus);
 }
