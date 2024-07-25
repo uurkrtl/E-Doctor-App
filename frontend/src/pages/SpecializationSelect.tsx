@@ -1,8 +1,19 @@
 import SpecializationService from "../services/SpecializationService.ts";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Specialization} from "../types/Specialization.ts";
 import DoctorService from "../services/DoctorService.ts";
 import {Doctor} from "../types/Doctor.ts";
+import {Link} from "react-router-dom";
+
+import {
+    CardMeta,
+    CardHeader,
+    CardGroup,
+    CardDescription,
+    CardContent,
+    Card,
+    Image,
+} from 'semantic-ui-react';
 
 const specializationService = new SpecializationService();
 const doctorService = new DoctorService();
@@ -20,6 +31,11 @@ function SpecializationSelect() {
         }
         return text;
     };
+
+    const handleSpecializationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedSpecializationId = e.target.value;
+        setSelectedSpecialization(specializations.find(specialization => specialization.id === selectedSpecializationId));
+    }
 
     useEffect(() => {
         specializationService.getSpecializationByActive(true).then((response) => {
@@ -57,9 +73,9 @@ function SpecializationSelect() {
             <div className="mt-5 mb-3">
                 <select className="form-select"
                         id="specializationName"
-                        onChange={(e) => setSelectedSpecialization(specializations.find(specialization => specialization.id === e.target.value))}
+                        onChange={handleSpecializationChange}
                 >
-                    <option defaultValue={0}>Fachgebiet auswählen</option>
+                    <option value="0">Fachgebiet auswählen</option>
                     {specializations.map((specialization) => {
                         return(
                             <option key={specialization.id} value={specialization.id}>{specialization.name}</option>
@@ -68,13 +84,32 @@ function SpecializationSelect() {
                 </select>
             </div>
             <div>
-                <ul>
+                <CardGroup className='mt-3'>
                     {doctors.map((doctor) => {
                         return (
-                            <li key={doctor.id}>{truncateText(doctor.name, 30)}</li>
+                            <Card key={doctor.id}>
+                                <CardContent>
+                                    <Image
+                                        floated='right'
+                                        size='tiny'
+                                        src={doctor.imageUrl}
+                                    />
+                                    <CardHeader>{truncateText(doctor.name, 30)}</CardHeader>
+                                    <CardMeta>{truncateText(doctor.specializationName, 30)}</CardMeta>
+                                    <CardDescription>
+                                        Frühester Termin am <strong>1.10.2024</strong>
+                                    </CardDescription>
+                                </CardContent>
+                                <CardContent extra>
+                                    <Link to="/desired-path" className="ui basic green button fluid">
+                                        Wählen
+                                    </Link>
+                                </CardContent>
+                            </Card>
                         )
                     })}
-                </ul>
+                </CardGroup>
+
             </div>
             {errorMessage && (
                 <div className="alert alert-danger" role="alert">

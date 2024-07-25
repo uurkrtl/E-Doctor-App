@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class DoctorGetAllResponse {
     private String id;
     private String name;
+    private String imageUrl;
     private String specializationName;
     private boolean isActive;
 }

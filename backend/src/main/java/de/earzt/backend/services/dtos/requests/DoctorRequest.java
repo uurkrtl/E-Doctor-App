@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class DoctorRequest {
     @Size(min = 2, max = 50, message = "Doctor name must be between 2-50 characters")
     private String name;
-    @NotNull(message = "Specialization cannot be empty")
     private String specializationId;
+    @NotNull(message = "Specialization cannot be empty")
+    private String imageUrl;
 }
