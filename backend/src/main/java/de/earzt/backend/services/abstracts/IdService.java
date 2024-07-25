@@ -5,4 +5,5 @@ public interface IdService {
     String generateDoctorId();
     String generatePatientId();
     String generateSpecializationId();
+    String generateTimeSlotId();
 }
