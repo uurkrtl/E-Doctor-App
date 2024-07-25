@@ -26,4 +26,9 @@ public class IdManager implements IdService {
     public String generateSpecializationId() {
         return "SPC-" + UUID.randomUUID();
     }
+
+    @Override
+    public String generateTimeSlotId() {
+        return "TME-" + UUID.randomUUID();
+    }
 }
