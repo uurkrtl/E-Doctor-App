@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class DoctorCreatedResponse {
     private String id;
     private String name;
+    private String imageUrl;
     private String specializationName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

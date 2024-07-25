@@ -17,6 +17,7 @@ public class Doctor {
     @Id
     private String id;
     private String name;
+    private String imageUrl;
     private Specialization specialization;
     private List<Appointment> appointments;
     private LocalDateTime createdAt;
