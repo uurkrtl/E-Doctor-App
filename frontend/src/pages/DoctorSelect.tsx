@@ -18,7 +18,7 @@ import {
 const specializationService = new SpecializationService();
 const doctorService = new DoctorService();
 
-function SpecializationSelect() {
+function DoctorSelect() {
     const [specializations, setSpecializations] = useState<Specialization[]>([]);
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [loading, setLoading] = useState(true);
@@ -101,7 +101,7 @@ function SpecializationSelect() {
                                     </CardDescription>
                                 </CardContent>
                                 <CardContent extra>
-                                    <Link to="/desired-path" className="ui basic green button fluid">
+                                    <Link to={`/appointments/date-select/${doctor.id}`} className="ui basic green button fluid">
                                         Wählen
                                     </Link>
                                 </CardContent>
@@ -120,4 +120,4 @@ function SpecializationSelect() {
     );
 }
 
-export default SpecializationSelect;
+export default DoctorSelect;

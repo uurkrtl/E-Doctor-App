@@ -1,7 +1,8 @@
 import {Route, Routes} from "react-router-dom";
 import HomePage from "../pages/HomePage.tsx";
 import Footer from "./Footer.tsx";
-import SpecializationSelect from "../pages/SpecializationSelect.tsx";
+import DoctorSelect from "../pages/DoctorSelect.tsx";
+import DateSelect from "../pages/DateSelect.tsx";
 
 
 function UserPages() {
@@ -9,7 +10,8 @@ function UserPages() {
         <div>
             <Routes>
                 <Route path={'/'} element={<HomePage/>}/>
-                <Route path={'/appointments/add'} element={<SpecializationSelect/>}/>
+                <Route path={'/appointments/doctor-select'} element={<DoctorSelect/>}/>
+                <Route path={'/appointments/date-select/:doctorId'} element={<DateSelect/>}/>
             </Routes>
             <Footer/>
         </div>

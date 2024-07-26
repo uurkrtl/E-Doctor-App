@@ -3,5 +3,5 @@ export type Specialization = {
     name: string,
     createdAt: Date,
     updatedAt: Date,
-    isActive: boolean
+    active: boolean
 }
