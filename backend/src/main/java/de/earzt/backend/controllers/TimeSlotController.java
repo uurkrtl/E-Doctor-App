@@ -22,6 +22,11 @@ public class TimeSlotController {
         return timeSlotService.getTimeSlotsByDate(slotDate, doctorId);
     }
 
+    @GetMapping("/{id}")
+    public TimeSlotCreatedResponse getTimeSlotById(@PathVariable String id) {
+        return timeSlotService.getTimeSlotById(id);
+    }
+
     @PostMapping("/multi")
     @ResponseStatus(HttpStatus.CREATED)
     public List<TimeSlotGetAllResponse> addMultiTimeSlot(@RequestBody TimeSlotMultiRequest timeSlotMultiRequest) {
@@ -31,5 +36,10 @@ public class TimeSlotController {
     @PutMapping("/status/{id}")
     public TimeSlotCreatedResponse changeTimeSlotStatus(@PathVariable String id) {
         return timeSlotService.changeTimeSlotStatus(id);
+    }
+
+    @PutMapping("/patient/{slotId}/{patientId}")
+    public TimeSlotCreatedResponse addPatientId(@PathVariable String slotId, @PathVariable String patientId) {
+        return timeSlotService.addPatientId(slotId, patientId);
     }
 }

@@ -16,4 +16,5 @@ public class TimeSlotCreatedResponse {
     private LocalTime time;
     private boolean isAvailable;
     private String doctorId;
+    private String patientId;
 }

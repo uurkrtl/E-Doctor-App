@@ -21,5 +21,6 @@ public class TimeSlot {
     private LocalDate date;
     private LocalTime time;
     private boolean isAvailable;
-    private String doctorId;
+    private Doctor doctor;
+    private Patient patient;
 }
