@@ -14,6 +14,7 @@ import {
     Card,
     Image,
 } from 'semantic-ui-react';
+import CustomIcon from "../layouts/CustomIcon.tsx";
 
 const specializationService = new SpecializationService();
 const doctorService = new DoctorService();
@@ -71,13 +72,18 @@ function DoctorSelect() {
     return (
         <div className={'container'}>
             <div className="mt-5 mb-3">
+                <div className="py-5 text-center">
+                    <CustomIcon pageName='DoctorSelect'/>
+                    <h2>Arztauswahl</h2>
+                    <p className="lead">Unten können Sie Fachgebiet und Arzt auswählen.</p>
+                </div>
                 <select className="form-select"
                         id="specializationName"
                         onChange={handleSpecializationChange}
                 >
                     <option value="0">Fachgebiet auswählen</option>
                     {specializations.map((specialization) => {
-                        return(
+                        return (
                             <option key={specialization.id} value={specialization.id}>{specialization.name}</option>
                         )
                     })}

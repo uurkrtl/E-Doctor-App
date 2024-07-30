@@ -13,6 +13,7 @@ import {
     Card,
 } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
+import CustomIcon from "../layouts/CustomIcon.tsx";
 
 const timeSlotService = new TimeSlotService();
 const doctorService = new DoctorService();
@@ -85,10 +86,15 @@ function DateSelect() {
     return (
         <div className={'container'}>
             <div className="mt-5 mb-3">
+                <div className="py-5 text-center">
+                    <CustomIcon pageName='DateSelect'/>
+                    <h2>Terminauswahl</h2>
+                    <p className="lead">Unten können Sie das Datum und die Uhrzeit für Ihren Termin auswählen.</p>
+                </div>
                 <div className="row g-3">
                     <div className="col-md-5 col-lg-4">
                         <CardGroup>
-                            <Card>
+                        <Card>
                                 <CardContent>
                                     <CardMeta>Fachgebiet</CardMeta>
                                     <CardHeader>{doctor.specializationName}</CardHeader>
@@ -98,7 +104,7 @@ function DateSelect() {
                                     <CardHeader>{selectedDate ? new Date(selectedDate).toLocaleDateString('de-DE') : "-"}</CardHeader>
                                     <CardMeta>Zeit</CardMeta>
                                     {selectedTimeSlot && (
-                                        <CardHeader>{truncateText(selectedTimeSlot.time,5)}</CardHeader>
+                                        <CardHeader>{truncateText(selectedTimeSlot.time, 5)}</CardHeader>
                                     )}
                                 </CardContent>
                             </Card>
@@ -141,7 +147,8 @@ function DateSelect() {
                             <Icon name='arrow left'/>
                             Zurück
                         </Button>
-                        <Button as={Link} to={`/appointments/name-enter/${selectedTimeSlot?.id}`} primary icon labelPosition='right'>
+                        <Button as={Link} to={`/appointments/name-enter/${selectedTimeSlot?.id}`} primary icon
+                                labelPosition='right'>
                             Nächste
                             <Icon name={"arrow right"}/>
                         </Button>
