@@ -141,7 +141,7 @@ function DateSelect() {
                             <Icon name='arrow left'/>
                             Zurück
                         </Button>
-                        <Button as={Link} to="" primary icon labelPosition='right'>
+                        <Button as={Link} to={`/appointments/name-enter/${selectedTimeSlot?.id}`} primary icon labelPosition='right'>
                             Nächste
                             <Icon name={"arrow right"}/>
                         </Button>

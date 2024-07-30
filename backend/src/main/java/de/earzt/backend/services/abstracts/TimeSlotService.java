@@ -10,5 +10,7 @@ import java.util.List;
 public interface TimeSlotService {
     List<TimeSlotGetAllResponse> getTimeSlotsByDate(LocalDate slotDate, String doctorId);
     List<TimeSlotGetAllResponse> addMultiTimeSlot(TimeSlotMultiRequest timeSlotMultiRequest);
+    TimeSlotCreatedResponse getTimeSlotById(String id);
     TimeSlotCreatedResponse changeTimeSlotStatus(String id);
+    TimeSlotCreatedResponse addPatientId(String slotId, String patientId);
 }

@@ -60,7 +60,7 @@ function DoctorSelect() {
     }, [selectedSpecialization]);
 
     if (loading) {
-        return <div className={'container'}>
+        return <div className={'container mt-5'}>
             <div className={'spinner-border text-primary'}>
                 <span className={'visually-hidden'}></span>
             </div>

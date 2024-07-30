@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Document(collection = "patients")
 @Data
@@ -18,7 +17,6 @@ public class Patient {
     private String id;
     private String name;
     private String contact;
-    private List<Appointment> appointments;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private boolean isActive;
