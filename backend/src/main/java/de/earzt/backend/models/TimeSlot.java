@@ -23,4 +23,5 @@ public class TimeSlot {
     private boolean isAvailable;
     private Doctor doctor;
     private Patient patient;
+    private String verificationCode;
 }

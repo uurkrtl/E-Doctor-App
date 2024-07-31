@@ -17,4 +17,5 @@ public class TimeSlotCreatedResponse {
     private boolean isAvailable;
     private String doctorId;
     private String patientId;
+    private String verificationCode;
 }

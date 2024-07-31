@@ -4,5 +4,6 @@ export type TimeSlot = {
     time:string,
     available:boolean,
     doctorId:string,
-    patientId:string
+    patientId:string,
+    verificationCode:string
 }
