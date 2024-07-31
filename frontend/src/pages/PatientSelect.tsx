@@ -1,11 +1,12 @@
 import TimeSlotService from "../services/TimeSlotService.ts";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import CustomIcon from "../layouts/CustomIcon.tsx";
 import {TimeSlot} from "../types/TimeSlot.ts";
 import PatientService from "../services/PatientService.ts";
 import {PatientRequest} from "../types/PatientRequest.ts";
 import {AxiosError} from "axios";
+import {Icon} from "semantic-ui-react";
 
 const timeSlotService = new TimeSlotService();
 const patientService = new PatientService();
@@ -139,15 +140,35 @@ function PatientSelect() {
                                 <div className="col-sm-6">
                                     <label htmlFor="name" className="form-label">Name</label>
                                     <input type="text" className="form-control" id="name"
-                                           onChange={(e) => setPatientRequest({...patientRequest, name: e.target.value})}/>
+                                           onChange={(e) => setPatientRequest({
+                                               ...patientRequest,
+                                               name: e.target.value
+                                           })}/>
                                 </div>
                                 <div className="col-sm-6">
                                     <label htmlFor="contact" className="form-label">Handynummer</label>
                                     <input type="text" className="form-control" id="contact"
-                                           onChange={(e) => setPatientRequest({...patientRequest, contact: e.target.value})}/>
+                                           onChange={(e) => setPatientRequest({
+                                               ...patientRequest,
+                                               contact: e.target.value
+                                           })}/>
                                 </div>
                             </div>
-                            <button className="w-100 btn btn-primary btn-lg mt-3" type="submit">Termin speichern</button>
+                            <div className="row g-5">
+                                <div className="col-md-5 col-lg-4">
+                                    <Link className="w-100 btn btn-secondary btn-lg mt-3" to={`/appointments/date-select/${timeSlot.doctorId}`}>
+                                        <Icon name='angle double left'/>
+                                        Zurück
+                                    </Link>
+                                </div>
+                                <div className="col-md-7 col-lg-8">
+                                    <button className="w-100 btn btn-primary btn-lg mt-3" type="submit">
+                                        Termin speichern
+                                        <Icon name='check circle'/>
+                                    </button>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                 </div>

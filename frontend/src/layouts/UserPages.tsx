@@ -12,7 +12,7 @@ function UserPages() {
         <div>
             <Routes>
                 <Route path={'/'} element={<HomePage/>}/>
-                <Route path={'/appointments/doctor-select'} element={<DoctorSelect/>}/>
+                <Route path={'/appointments/doctor-select/:specializationId?'} element={<DoctorSelect/>}/>
                 <Route path={'/appointments/date-select/:doctorId'} element={<DateSelect/>}/>
                 <Route path={'/appointments/name-enter/:timeSlotId'} element={<PatientSelect/>}/>
                 <Route path={'/appointments/appointment-confirmation/:timeSlotId'} element={<AppointmentConfirmation/>}/>

@@ -4,13 +4,14 @@ import React, {useEffect, useState} from "react";
 import {TimeSlot} from "../types/TimeSlot.ts";
 import DoctorService from "../services/DoctorService.ts";
 import {Doctor} from "../types/Doctor.ts";
-import { Button, Icon } from 'semantic-ui-react'
 import {
     CardMeta,
     CardHeader,
     CardGroup,
     CardContent,
     Card,
+    Button,
+    Icon
 } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 import CustomIcon from "../layouts/CustomIcon.tsx";
@@ -29,6 +30,7 @@ function DateSelect() {
         id:'',
         name:'',
         imageUrl:'',
+        specializationId:'',
         specializationName:'',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -75,7 +77,7 @@ function DateSelect() {
     }, [doctorId, selectedDate]);
 
     if (loading) {
-        return <div className={'container'}>
+        return <div className={'container mt-3'}>
             <div className={'spinner-border text-primary'}>
                 <span className={'visually-hidden'}></span>
             </div>
@@ -143,7 +145,7 @@ function DateSelect() {
                         })}
                     </div>
                     <div className="mt-4">
-                        <Button as={Link} to="" icon labelPosition='left'>
+                        <Button as={Link} to={`/appointments/doctor-select/${doctor.specializationId}`} icon labelPosition='left'>
                             <Icon name='arrow left'/>
                             Zurück
                         </Button>
