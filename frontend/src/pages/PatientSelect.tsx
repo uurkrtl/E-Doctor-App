@@ -76,7 +76,7 @@ function PatientSelect() {
                     setLoading(false);
                 })
                 .catch((error) => {
-                    console.error('Error fetching product:', error);
+                    console.error('Error fetching appointment:', error);
                     navigate('*');
                 });
         }
