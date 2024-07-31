@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Specialization} from "../types/Specialization.ts";
 import DoctorService from "../services/DoctorService.ts";
 import {Doctor} from "../types/Doctor.ts";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 import {
     CardMeta,
@@ -20,6 +20,7 @@ const specializationService = new SpecializationService();
 const doctorService = new DoctorService();
 
 function DoctorSelect() {
+    const { specializationId = '' } = useParams<string>();
     const [specializations, setSpecializations] = useState<Specialization[]>([]);
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [loading, setLoading] = useState(true);
@@ -57,8 +58,16 @@ function DoctorSelect() {
                 setErrorMessage(`Fehler beim Abrufen der Ärzte: ${error}`)
                 setLoading(false);
             });
+        }else if (specializationId) {
+            doctorService.getActiveDoctorsBySpecializationId(specializationId).then((response) => {
+                setDoctors(response.data);
+                setLoading(false)
+            }).catch((error) => {
+                setErrorMessage(`Fehler beim Abrufen der Ärzte: ${error}`)
+                setLoading(false);
+            });
         }
-    }, [selectedSpecialization]);
+    }, [specializationId, selectedSpecialization]);
 
     if (loading) {
         return <div className={'container mt-5'}>
@@ -80,6 +89,7 @@ function DoctorSelect() {
                 <select className="form-select"
                         id="specializationName"
                         onChange={handleSpecializationChange}
+                        defaultValue={specializationId || ''}
                 >
                     <option value="0">Fachgebiet auswählen</option>
                     {specializations.map((specialization) => {

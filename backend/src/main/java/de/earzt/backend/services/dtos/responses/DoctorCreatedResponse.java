@@ -13,6 +13,7 @@ public class DoctorCreatedResponse {
     private String id;
     private String name;
     private String imageUrl;
+    private String specializationId;
     private String specializationName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
