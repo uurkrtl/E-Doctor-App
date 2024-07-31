@@ -25,7 +25,8 @@ function PatientSelect() {
         time: '',
         available: true,
         doctorId: '',
-        patientId: ''
+        patientId: '',
+        verificationCode: ''
     });
 
     const truncateText = (text: string, maxLength: number) => {
@@ -53,6 +54,7 @@ function PatientSelect() {
             const patientId = await savePatient();
             await timeSlotService.addPatientId(timeSlotId, patientId);
             setErrorMessage('');
+            navigate(`/appointments/appointment-confirmation/${timeSlotId}`);
             console.log('Time slot updated successfully');
         } catch (error) {
             if (error instanceof AxiosError && error.response) {

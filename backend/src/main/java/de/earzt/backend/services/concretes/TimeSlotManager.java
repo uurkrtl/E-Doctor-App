@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -78,7 +79,9 @@ public class TimeSlotManager implements TimeSlotService {
     public TimeSlotCreatedResponse addPatientId(String slotId, String patientId) {
         TimeSlot timeSlot = timeSlotRepository.findById(slotId).orElseThrow(() -> new RecordNotFoundException(TimeSlotMessage.TIME_SLOT_NOT_FOUND));
         Patient patient = patientRepository.findById(patientId).orElseThrow(() -> new RecordNotFoundException(PatientMessage.PATIENT_NOT_FOUND));
+        timeSlot.setAvailable(false);
         timeSlot.setPatient(patient);
+        timeSlot.setVerificationCode(String.valueOf(UUID.randomUUID()).substring(3,8));
         timeSlot = timeSlotRepository.save(timeSlot);
         return modelMapperService.forResponse().map(timeSlot, TimeSlotCreatedResponse.class);
     }

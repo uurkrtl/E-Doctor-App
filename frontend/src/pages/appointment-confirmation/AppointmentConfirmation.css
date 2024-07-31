@@ -1,0 +1,43 @@
+body {
+    background-color: #f0f0f0;
+}
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.confirmation-container {
+    text-align: center;
+}
+
+.checkmark-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.checkmark {
+    width: 35px;
+    height: 70px;
+    border: solid white;
+    border-width: 0 10px 10px 0;
+    transform: rotate(45deg);
+    position: relative;
+    top: -10px;
+    left: 5px;
+}
+
+.confirm-h2 {
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
