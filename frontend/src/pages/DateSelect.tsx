@@ -87,7 +87,7 @@ function DateSelect() {
 
     return (
         <div className={'container'}>
-            <div className="mt-5 mb-3">
+            <div className="mb-3">
                 <div className="py-5 text-center">
                     <CustomIcon pageName='DateSelect'/>
                     <h2>Terminauswahl</h2>

@@ -48,6 +48,9 @@ public class TimeSlotManager implements TimeSlotService {
         List<TimeSlotGetAllResponse> createdSlotList = new ArrayList<>();
         for (LocalDate slotDate = timeSlotMultiRequest.getSlotStartDate(); slotDate.isBefore(timeSlotMultiRequest.getSlotEndDate()); slotDate = slotDate.plusDays(1)) {
             for (LocalTime slotTime = timeSlotMultiRequest.getSlotStartTime(); slotTime.isBefore(timeSlotMultiRequest.getSlotEndTime()); slotTime = slotTime.plusMinutes(timeSlotMultiRequest.getTimePeriod())) {
+                if (slotTime.getHour() == 12 || slotTime.getHour() == 13) {
+                    continue;
+                }
                 TimeSlot timeSlot =
                         TimeSlot.builder()
                                 .id(idService.generateTimeSlotId())
