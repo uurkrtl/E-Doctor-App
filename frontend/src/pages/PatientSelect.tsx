@@ -7,9 +7,12 @@ import PatientService from "../services/PatientService.ts";
 import {PatientRequest} from "../types/PatientRequest.ts";
 import {AxiosError} from "axios";
 import {Icon} from "semantic-ui-react";
+import DoctorService from "../services/DoctorService.ts";
+import {Doctor} from "../types/Doctor.ts";
 
 const timeSlotService = new TimeSlotService();
 const patientService = new PatientService();
+const doctorService = new DoctorService();
 
 function PatientSelect() {
     const { timeSlotId = ''} = useParams<string>();
@@ -28,6 +31,16 @@ function PatientSelect() {
         doctorId: '',
         patientId: '',
         verificationCode: ''
+    });
+    const [doctor, setDoctor] = useState<Doctor>({
+        id:'',
+        name:'',
+        imageUrl:'',
+        specializationId:'',
+        specializationName:'',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        active:true
     });
 
     const truncateText = (text: string, maxLength: number) => {
@@ -83,6 +96,16 @@ function PatientSelect() {
         }
     }, [timeSlotId, navigate]);
 
+    useEffect(() => {
+        if (timeSlot) {
+            doctorService.getDoctorById(timeSlot.doctorId)
+                .then((response) => {
+                    setDoctor(response.data);
+                    setLoading(false);
+                })
+        }
+    }, [timeSlot]);
+
     if (loading) {
         return <div className={'container mt-3'}>
             <div className={'spinner-border text-primary'}>
@@ -110,13 +133,13 @@ function PatientSelect() {
                                 <div>
                                     <h6 className="my-0">Fachgebiet</h6>
                                 </div>
-                                <span className="text-body-secondary">Urologie</span>
+                                <span className="text-body-secondary">{doctor.specializationName}</span>
                             </li>
                             <li className="list-group-item d-flex justify-content-between lh-sm">
                                 <div>
                                     <h6 className="my-0">Arzt/Ärztin</h6>
                                 </div>
-                                <span className="text-body-secondary">Murat Gezer</span>
+                                <span className="text-body-secondary">{doctor.name}</span>
                             </li>
                             <li className="list-group-item d-flex justify-content-between lh-sm">
                                 <div>

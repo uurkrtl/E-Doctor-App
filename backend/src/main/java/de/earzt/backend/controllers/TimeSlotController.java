@@ -42,4 +42,15 @@ public class TimeSlotController {
     public TimeSlotCreatedResponse addPatientId(@PathVariable String slotId, @PathVariable String patientId) {
         return timeSlotService.addPatientId(slotId, patientId);
     }
+
+    @PutMapping("/patient-remove/{slotId}")
+    public TimeSlotCreatedResponse removePatientId(@PathVariable String slotId) {
+        return timeSlotService.removePatientId(slotId);
+    }
+
+
+    @GetMapping("/verification-code/{contact}/{verificationCode}")
+    public TimeSlotCreatedResponse getTimeSlotByVerificationCode(@PathVariable String contact, @PathVariable String verificationCode) {
+        return timeSlotService.getTimeSlotByVerificationCode(contact, verificationCode);
+    }
 }

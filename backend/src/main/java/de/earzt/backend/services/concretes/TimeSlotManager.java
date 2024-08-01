@@ -85,4 +85,25 @@ public class TimeSlotManager implements TimeSlotService {
         timeSlot = timeSlotRepository.save(timeSlot);
         return modelMapperService.forResponse().map(timeSlot, TimeSlotCreatedResponse.class);
     }
+
+    @Override
+    public TimeSlotCreatedResponse removePatientId(String slotId) {
+        TimeSlot timeSlot = timeSlotRepository.findById(slotId).orElseThrow(() -> new RecordNotFoundException(TimeSlotMessage.TIME_SLOT_NOT_FOUND));
+        timeSlot.setAvailable(true);
+        timeSlot.setPatient(null);
+        timeSlot.setVerificationCode("");
+        timeSlot = timeSlotRepository.save(timeSlot);
+        return modelMapperService.forResponse().map(timeSlot, TimeSlotCreatedResponse.class);
+    }
+
+    @Override
+    public TimeSlotCreatedResponse getTimeSlotByVerificationCode(String contact, String verificationCode) {
+        List<TimeSlot> timeSlots = timeSlotRepository.findAllByVerificationCode(verificationCode);
+        for (TimeSlot timeSlot: timeSlots) {
+            if (!timeSlot.isAvailable() && timeSlot.getPatient().getContact().equals(contact)) {
+                return modelMapperService.forResponse().map(timeSlot, TimeSlotCreatedResponse.class);
+            }
+        }
+        throw new RecordNotFoundException(TimeSlotMessage.APPOINTMENT_NOT_FOUND);
+    }
 }
