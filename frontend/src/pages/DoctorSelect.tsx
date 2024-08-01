@@ -128,7 +128,7 @@ function DoctorSelect() {
 
             </div>
             {errorMessage && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger mt-3" role="alert">
                     {errorMessage}
                 </div>
             )}
