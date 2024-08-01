@@ -132,11 +132,11 @@ function DateSelect() {
                                         name="flexRadioDefault"
                                         id={timeSlot.id}
                                         onClick={handleTimeSlotChange}
-                                        disabled={!timeSlot.available}
+                                        disabled={timeSlot.status != 'AVAILABLE'}
                                     />
                                     <label className="form-check-label" htmlFor={timeSlot.id}>
                                         <span
-                                            className={`badge rounded-pill mx-1 mt-2 text-bg-${timeSlot.available ? "success" : "danger"}`}>
+                                            className={`badge rounded-pill mx-1 mt-2 text-bg-${timeSlot.status == 'AVAILABLE' ? "success" : "danger"}`}>
                                             {truncateText(timeSlot.time, 5)}
                                         </span>
                                     </label>

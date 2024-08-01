@@ -5,6 +5,7 @@ import de.earzt.backend.core.mappers.ModelMapperService;
 import de.earzt.backend.models.Doctor;
 import de.earzt.backend.models.Patient;
 import de.earzt.backend.models.TimeSlot;
+import de.earzt.backend.models.enums.TimeSlotStatus;
 import de.earzt.backend.repositories.DoctorRepository;
 import de.earzt.backend.repositories.PatientRepository;
 import de.earzt.backend.repositories.TimeSlotRepository;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +53,7 @@ public class TimeSlotManager implements TimeSlotService {
                                 .id(idService.generateTimeSlotId())
                                 .date(slotDate)
                                 .time(slotTime)
-                                .isAvailable(true)
+                                .status(TimeSlotStatus.AVAILABLE)
                                 .doctor(doctor)
                         .build();
                 timeSlot = timeSlotRepository.save(timeSlot);
@@ -68,9 +70,9 @@ public class TimeSlotManager implements TimeSlotService {
     }
 
     @Override
-    public TimeSlotCreatedResponse changeTimeSlotStatus(String id) {
+    public TimeSlotCreatedResponse changeTimeSlotStatus(String id, String status) {
         TimeSlot slot = timeSlotRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(TimeSlotMessage.TIME_SLOT_NOT_FOUND));
-        slot.setAvailable(!slot.isAvailable());
+        slot.setStatus(TimeSlotStatus.valueOf(status));
         slot = timeSlotRepository.save(slot);
         return modelMapperService.forResponse().map(slot, TimeSlotCreatedResponse.class);
     }
@@ -79,8 +81,9 @@ public class TimeSlotManager implements TimeSlotService {
     public TimeSlotCreatedResponse addPatientId(String slotId, String patientId) {
         TimeSlot timeSlot = timeSlotRepository.findById(slotId).orElseThrow(() -> new RecordNotFoundException(TimeSlotMessage.TIME_SLOT_NOT_FOUND));
         Patient patient = patientRepository.findById(patientId).orElseThrow(() -> new RecordNotFoundException(PatientMessage.PATIENT_NOT_FOUND));
-        timeSlot.setAvailable(false);
+        timeSlot.setStatus(TimeSlotStatus.ACTIVE);
         timeSlot.setPatient(patient);
+        timeSlot.setAppointmentCreatedAt(LocalDateTime.now());
         timeSlot.setVerificationCode(String.valueOf(UUID.randomUUID()).substring(3,8));
         timeSlot = timeSlotRepository.save(timeSlot);
         return modelMapperService.forResponse().map(timeSlot, TimeSlotCreatedResponse.class);
@@ -89,7 +92,7 @@ public class TimeSlotManager implements TimeSlotService {
     @Override
     public TimeSlotCreatedResponse removePatientId(String slotId) {
         TimeSlot timeSlot = timeSlotRepository.findById(slotId).orElseThrow(() -> new RecordNotFoundException(TimeSlotMessage.TIME_SLOT_NOT_FOUND));
-        timeSlot.setAvailable(true);
+        timeSlot.setStatus(TimeSlotStatus.AVAILABLE);
         timeSlot.setPatient(null);
         timeSlot.setVerificationCode("");
         timeSlot = timeSlotRepository.save(timeSlot);
@@ -100,7 +103,7 @@ public class TimeSlotManager implements TimeSlotService {
     public TimeSlotCreatedResponse getTimeSlotByVerificationCode(String contact, String verificationCode) {
         List<TimeSlot> timeSlots = timeSlotRepository.findAllByVerificationCode(verificationCode);
         for (TimeSlot timeSlot: timeSlots) {
-            if (!timeSlot.isAvailable() && timeSlot.getPatient().getContact().equals(contact)) {
+            if (!timeSlot.getStatus().equals(TimeSlotStatus.AVAILABLE) && timeSlot.getPatient().getContact().equals(contact)) {
                 return modelMapperService.forResponse().map(timeSlot, TimeSlotCreatedResponse.class);
             }
         }
