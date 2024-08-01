@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PatientRepository extends MongoRepository<Patient, String> {
     List<Patient> findByIsActive(boolean isActive);
+
+    Patient findByNameAndContact(String name, String contact);
 }

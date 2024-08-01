@@ -45,11 +45,14 @@ public class PatientManager implements PatientService {
 
     @Override
     public PatientCreatedResponse addPatient(PatientRequest patientRequest) {
-        Patient patient = modelMapperService.forRequest().map(patientRequest, Patient.class);
-        patient.setId(idService.generatePatientId());
-        patient.setActive(true);
-        patient.setCreatedAt(LocalDateTime.now());
-        patient = patientRepository.save(patient);
+        Patient patient = patientRepository.findByNameAndContact(patientRequest.getName(), patientRequest.getContact());
+        if (patient == null) {
+            patient = modelMapperService.forRequest().map(patientRequest, Patient.class);
+            patient.setId(idService.generatePatientId());
+            patient.setActive(true);
+            patient.setCreatedAt(LocalDateTime.now());
+            patient = patientRepository.save(patient);
+        }
         return modelMapperService.forResponse().map(patient, PatientCreatedResponse.class);
     }
 
