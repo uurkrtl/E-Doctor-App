@@ -11,7 +11,7 @@ function CancelAppointmentConfirmation() {
         id: '',
         date: '',
         time: '',
-        available: true,
+        status: 'AVAILABLE',
         doctorId: '',
         patientId: '',
         verificationCode: ''

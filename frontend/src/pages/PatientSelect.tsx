@@ -27,7 +27,7 @@ function PatientSelect() {
         id: '',
         date: '',
         time: '',
-        available: true,
+        status: 'AVAILABLE',
         doctorId: '',
         patientId: '',
         verificationCode: ''

@@ -33,9 +33,9 @@ public class TimeSlotController {
         return timeSlotService.addMultiTimeSlot(timeSlotMultiRequest);
     }
 
-    @PutMapping("/status/{id}")
-    public TimeSlotCreatedResponse changeTimeSlotStatus(@PathVariable String id) {
-        return timeSlotService.changeTimeSlotStatus(id);
+    @PutMapping("/status/{id}/{status}")
+    public TimeSlotCreatedResponse changeTimeSlotStatus(@PathVariable String id, @PathVariable String status) {
+        return timeSlotService.changeTimeSlotStatus(id, status);
     }
 
     @PutMapping("/patient/{slotId}/{patientId}")

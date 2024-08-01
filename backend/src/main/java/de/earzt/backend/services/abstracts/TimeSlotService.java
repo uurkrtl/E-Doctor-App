@@ -11,7 +11,7 @@ public interface TimeSlotService {
     List<TimeSlotGetAllResponse> getTimeSlotsByDate(LocalDate slotDate, String doctorId);
     List<TimeSlotGetAllResponse> addMultiTimeSlot(TimeSlotMultiRequest timeSlotMultiRequest);
     TimeSlotCreatedResponse getTimeSlotById(String id);
-    TimeSlotCreatedResponse changeTimeSlotStatus(String id);
+    TimeSlotCreatedResponse changeTimeSlotStatus(String id, String status);
     TimeSlotCreatedResponse addPatientId(String slotId, String patientId);
     TimeSlotCreatedResponse removePatientId(String slotId);
     TimeSlotCreatedResponse getTimeSlotByVerificationCode(String contact, String verificationCode);
