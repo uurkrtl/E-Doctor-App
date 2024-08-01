@@ -21,6 +21,21 @@ function Footer() {
                                 Termin stornieren
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to='/imprint' className="nav-link px-2 text-body-secondary">
+                                Impressum
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/data-protection' className="nav-link px-2 text-body-secondary">
+                                Datenschutzerklärung
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/general-terms-and-conditions' className="nav-link px-2 text-body-secondary">
+                                AGB
+                            </Link>
+                        </li>
                     </ul>
                     <p className="text-center text-body-secondary">
                         <Link to={`http://ugurkartal.de/`} target="_blank"
