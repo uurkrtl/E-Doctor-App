@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {TimeSlot} from "../types/TimeSlot.ts";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {Icon} from "semantic-ui-react";
+import CustomIcon from "../layouts/CustomIcon.tsx";
 
 const timeSlotService = new TimeSlotService();
 
@@ -72,6 +73,11 @@ function CancelAppointmentConfirmation() {
     return (
         <div className="container py-5 text-center">
             <div className="row g-5">
+
+                <CustomIcon pageName='CancelAppointmentConfirmation'/>
+                <h2>Termin stornieren</h2>
+                <p className="lead">Sie können den von Ihnen angesehenen Termin stornieren.</p>
+
                 <div className="col-md-5 col-lg-4">
                     <h4 className="d-flex justify-content-between align-items-center mb-3">
                         <span className="text-primary">Ihr Termin</span>

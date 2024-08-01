@@ -150,7 +150,7 @@ function DateSelect() {
                             Zurück
                         </Button>
                         <Button as={Link} to={`/appointments/name-enter/${selectedTimeSlot?.id}`} primary icon
-                                labelPosition='right'>
+                                labelPosition='right' disabled={selectedTimeSlot==null}>
                             Nächste
                             <Icon name={"arrow right"}/>
                         </Button>
