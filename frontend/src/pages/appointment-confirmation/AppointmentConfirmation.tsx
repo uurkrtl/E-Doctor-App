@@ -44,7 +44,10 @@ function AppointmentConfirmation() {
                     <div className="checkmark"></div>
                 </div>
                 <h2 className="confirm-h2">Ihr Termin wurde erfolgreich gespeichert!</h2>
-                <h3>Ihr Bestätigungscode ist <strong className="text-bg-success">{timeSlot?.verificationCode}</strong></h3>
+                <h3>Ihr Bestätigungscode ist <strong className="text-bg-success">{timeSlot?.verificationCode}</strong>
+                </h3>
+                <h4>Bitte merken Sie sich den Bestätigungscode.</h4>
+                <a href="/" className="homepage-link">Klicken Sie hier, um zur Startseite zu gelangen</a>
             </div>
             {errorMessage && (
                 <div className="alert alert-danger mt-3" role="alert">

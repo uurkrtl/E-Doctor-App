@@ -6,13 +6,20 @@ function Footer() {
             <div className="container">
                 <footer className="py-3 my-4">
                     <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Home</a></li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Features</a>
+                        <li className="nav-item">
+                            <Link to='/' className="nav-link px-2 text-body-secondary">
+                                Startseite
+                            </Link>
                         </li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Pricing</a>
+                        <li className="nav-item">
+                            <Link to='/appointments/doctor-select' className="nav-link px-2 text-body-secondary">
+                                Neuer Termin
+                            </Link>
                         </li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">FAQs</a></li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">About</a>
+                        <li className="nav-item">
+                            <Link to='/appointments/appointment-cancel' className="nav-link px-2 text-body-secondary">
+                                Termin stornieren
+                            </Link>
                         </li>
                     </ul>
                     <p className="text-center text-body-secondary">

@@ -2,6 +2,7 @@ import TimeSlotService from "../services/TimeSlotService.ts";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {AxiosError} from "axios";
+import CustomIcon from "../layouts/CustomIcon.tsx";
 
 const timeSlotService = new TimeSlotService();
 
@@ -45,6 +46,11 @@ function CancelAppointmentSelect() {
 
             <form onSubmit={handleSubmit}>
                 <div className="row g-3">
+
+                    <CustomIcon pageName='CancelAppointmentSelect'/>
+                    <h2>Termin ansehen und stornieren</h2>
+                    <p className="lead">Füllen Sie die folgenden Informationen aus, um Ihren Termin anzuzeigen und zu stornieren.</p>
+
                     <div className="col-sm-6">
                         <label htmlFor="contact" className="form-label">Handynummer</label>
                         <input
