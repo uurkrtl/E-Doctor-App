@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface TimeSlotRepository extends MongoRepository<TimeSlot, String > {
     List<TimeSlot> findAllByDateAndDoctorId(LocalDate slotDate, String doctorId);
+
+    List<TimeSlot> findAllByVerificationCode(String verificationCode);
 }

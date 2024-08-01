@@ -13,4 +13,6 @@ public interface TimeSlotService {
     TimeSlotCreatedResponse getTimeSlotById(String id);
     TimeSlotCreatedResponse changeTimeSlotStatus(String id);
     TimeSlotCreatedResponse addPatientId(String slotId, String patientId);
+    TimeSlotCreatedResponse removePatientId(String slotId);
+    TimeSlotCreatedResponse getTimeSlotByVerificationCode(String contact, String verificationCode);
 }

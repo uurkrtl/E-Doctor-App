@@ -11,7 +11,7 @@ function Header() {
                         einfach verfügbare Termine und buchen Sie noch heute.</p>
                     <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
                         <Link to={"/appointments/doctor-select"} className="btn btn-primary btn-lg px-4 me-sm-3">Termin suchen</Link>
-                        <button type="button" className="btn btn-outline-secondary btn-lg px-4">Über uns</button>
+                        <Link to={"/appointments/appointment-cancel"} className="btn btn-outline-secondary btn-lg px-4">Termin stornieren</Link>
                     </div>
                 </div>
                 <div className="overflow-hidden" style={{maxHeight: '30vh'}}>

@@ -6,6 +6,8 @@ import DateSelect from "../pages/DateSelect.tsx";
 import PatientSelect from "../pages/PatientSelect.tsx";
 import AppointmentConfirmation from "../pages/appointment-confirmation/AppointmentConfirmation.tsx";
 import PageNotFound404 from "../pages/not-found-404/PageNotFound404.tsx";
+import CancelAppointmentSelect from "../pages/CancelAppointmentSelect.tsx";
+import CancelAppointmentConfirmation from "../pages/CancelAppointmentConfirmation.tsx";
 
 function UserPages() {
     return (
@@ -16,6 +18,8 @@ function UserPages() {
                 <Route path={'/appointments/date-select/:doctorId'} element={<DateSelect/>}/>
                 <Route path={'/appointments/name-enter/:timeSlotId'} element={<PatientSelect/>}/>
                 <Route path={'/appointments/appointment-confirmation/:timeSlotId'} element={<AppointmentConfirmation/>}/>
+                <Route path={'/appointments/appointment-cancel'} element={<CancelAppointmentSelect/>}/>
+                <Route path={'/appointments/appointment-cancel/:timeSlotId'} element={<CancelAppointmentConfirmation/>}/>
                 <Route path={'*'} element={<PageNotFound404/>}/>
             </Routes>
             <Footer/>
